@@ -1,41 +1,33 @@
 import style from './style.module.scss'
 import cn from 'classnames'
 
+type ButtonColors = 'primary' | 'error'
+
 interface ButtonProps {
-    /**
-     * Is this the principal call to action on the page?
-     */
-    primary?: boolean
-    /**
-     * What background color to use
-     */
-    backgroundColor?: string
-    /**
-     * How large should the button be?
-     */
-    size?: 'small' | 'medium' | 'large'
-    /**
-     * Button contents
-     */
+    /** 버튼의 형태를 지정합니다 */
+    variant?: 'contain' | 'outline'
+    /** 버튼의 색을 지정합니다 */
+    color?: ButtonColors
+    /** 버튼의 사이즈를 지정합니다 */
+    size?: 'small' | 'medium' | 'half' | 'full'
+    /** 버튼의 텍스트를 입력합니다 */
     label: string
-    /**
-     * Optional click handler
-     */
+    /** 버튼의 굵기를 설정합니다 */
+    bold?: boolean
+    disabled?: boolean
     onClick?: () => void
 }
 
-/**
- * Primary UI component for user interaction
- */
-const Button = ({ primary = false, size = 'medium', backgroundColor, label, ...props }: ButtonProps) => {
-    const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary'
+const Button = ({ size = 'small', color = 'primary', label, variant = 'contain', bold, ...props }: ButtonProps) => {
+    const classNames = cn(style.button, {
+        [style[`button__size__${size}`]]: size,
+        [style[`button__color__${color}`]]: variant === 'contain' && color,
+        [style.button__outline]: variant === 'outline',
+        [style.button__bold]: bold,
+    })
+
     return (
-        <button
-            type='button'
-            className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-            style={{ backgroundColor }}
-            {...props}
-        >
+        <button type='button' className={classNames} {...props}>
             {label}
         </button>
     )

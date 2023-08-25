@@ -1,6 +1,6 @@
 import { getDate } from './utils'
 
-interface StoreItem {
+export interface StoreItem {
     id: number
 
     inboundSource: string
