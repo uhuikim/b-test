@@ -1,17 +1,19 @@
 import Button from 'components/Button'
 import { StoreItem } from 'mocks/data'
 
+import style from './style.module.scss'
+
 type Props = {
     headList: Array<string>
     data: StoreItem[]
 }
 const Table = ({ headList, data }: Props) => {
     return (
-        <table>
+        <table className={style.table}>
             <thead>
                 <tr>
                     {headList.map((head) => (
-                        <th>{head}</th>
+                        <th key={head}>{head}</th>
                     ))}
                 </tr>
             </thead>
@@ -21,7 +23,7 @@ const Table = ({ headList, data }: Props) => {
                         const { placeName, name, phone, inboundSource, createdAt } = el
 
                         return (
-                            <tr className='border-b'>
+                            <tr key={placeName + name}>
                                 <td>{placeName}</td>
                                 <td>{name}</td>
                                 <td>{phone}</td>

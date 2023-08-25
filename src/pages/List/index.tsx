@@ -15,7 +15,7 @@ import Table from 'components/Table'
 //     { id: 'createdAt', value: '생성일' },
 // ]
 
-const headList = ['매장명', '이름', '연락처', '인입경로', '생성일', '']
+const headList = ['매장명', '성명', '연락처', '인입경로', '생성일', '']
 
 const List = () => {
     const navigate = useNavigate()

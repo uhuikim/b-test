@@ -1,0 +1,16 @@
+.table {
+    width: 100%;
+    margin-top: 50px;
+    th,
+    td {
+        border-bottom: 1px solid $border;
+        padding: 20px 10px;
+        text-align: start;
+    }
+
+    th {
+        color: $gray;
+        font-weight: 800;
+        font-size: 14px;
+    }
+}
