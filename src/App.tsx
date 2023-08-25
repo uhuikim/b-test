@@ -1,5 +1,5 @@
 import Layout from 'components/Layout'
-import './App.css'
+import 'styles/globals.scss'
 import { Route, Routes } from 'react-router-dom'
 import List from 'pages/List'
 import Upload from 'pages/Upload'
