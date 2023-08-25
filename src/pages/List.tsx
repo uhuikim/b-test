@@ -1,4 +1,5 @@
 import Button from 'components/Button'
+import Typography from 'components/Typography'
 import { consultingKeys } from 'lib/queryKeyFactory'
 import { useQuery } from 'react-query'
 
@@ -10,7 +11,7 @@ const List = () => {
 
     return (
         <div>
-            상담 목록 페이지
+            <Typography text='상담 인입 목록' type='title' />
             <Button />
         </div>
     )
