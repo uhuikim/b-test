@@ -7,6 +7,7 @@ const List = () => {
     const { isLoading, error, data } = useQuery(consultingKeys.list(), () =>
         fetch('/api/inbound').then((res) => res.json()),
     )
+
     console.log(data, isLoading)
 
     return (
