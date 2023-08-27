@@ -14,7 +14,7 @@ export type Props = {
 
 const TextArea = ({ id, label, name, value, placeholder, error, onChange, readonly, ...props }: Props) => {
     return (
-        <>
+        <div>
             <label className={style.label} htmlFor={id}>
                 {label}
             </label>
@@ -30,7 +30,7 @@ const TextArea = ({ id, label, name, value, placeholder, error, onChange, readon
                 readOnly={readonly}
                 {...props}
             />
-        </>
+        </div>
     )
 }
 

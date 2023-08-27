@@ -4,13 +4,17 @@ $size: (
     'full': 100%,
 );
 
+$height: (
+    'high': 38px,
+    'medium': 30px,
+);
+
 $colors: (
     'primary': $dark-blue,
     'error': $red,
 );
 
 .button {
-    height: 30px;
     color: $white;
     transition: all 0.2s ease;
     border: none;
@@ -21,6 +25,12 @@ $colors: (
     @each $name, $value in $size {
         &__size__#{$name} {
             width: $value;
+        }
+    }
+
+    @each $name, $value in $height {
+        &__height__#{$name} {
+            height: $value;
         }
     }
 

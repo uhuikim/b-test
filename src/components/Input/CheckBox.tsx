@@ -9,7 +9,7 @@ export type Props = {
 
 const CheckBox = ({ id, label, onChange, checked }: Props) => {
     return (
-        <div className={style.container}>
+        <div className={style.wrap}>
             <input
                 id={id}
                 type='checkbox'
@@ -19,8 +19,9 @@ const CheckBox = ({ id, label, onChange, checked }: Props) => {
                     console.log(e.target.checked)
                 }}
             />
-            <label className={style.label} htmlFor={id}></label>
-            <p>{label}</p>
+            <label className={style.label} htmlFor={id}>
+                {label}
+            </label>
         </div>
     )
 }

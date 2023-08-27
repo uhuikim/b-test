@@ -1,0 +1,71 @@
+.select {
+    position: relative;
+    border: 1px solid $border;
+    width: 100%;
+    padding: 12px 10px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+}
+
+.selectButton {
+    width: 100%;
+    position: relative;
+    color: $gray;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selectList {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background: $white;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgb(0 0 0 / 8%);
+    overflow: hidden;
+    z-index: 2;
+}
+
+.selectItem {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+
+    &:hover {
+        background: #f1f1f1;
+    }
+
+    > button {
+        width: 100%;
+        padding: 10px 20px;
+        position: relative;
+        color: inherit;
+        font-size: inherit;
+        text-align: start;
+    }
+}
+
+.selected {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17px;
+
+    &::after {
+        content: '✔';
+        font-size: 12px;
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        color: #a785e4;
+    }
+}
+
+.label {
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 10px;
+}

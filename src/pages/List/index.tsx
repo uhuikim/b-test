@@ -45,7 +45,7 @@ const List = () => {
         <div className={style.container}>
             <div className={style.header}>
                 <Typography text='상담 인입 목록' type='title' />
-                <Button label='+ 추가' variant='contain' color='primary' bold onClick={handleClick} />
+                <Button label='+ 추가' variant='contain' color='primary' height='high' bold onClick={handleClick} />
             </div>
 
             {isLoading ? <Spinner /> : <Table headList={headList} data={data} handleDelete={handleDelete} />}

@@ -4,6 +4,7 @@ import cn from 'classnames'
 type ButtonColors = 'primary' | 'error'
 
 interface ButtonProps {
+    type?: 'button' | 'submit'
     /** 버튼의 형태를 지정합니다 */
     variant?: 'contain' | 'outline'
     /** 버튼의 색을 지정합니다 */
@@ -16,18 +17,30 @@ interface ButtonProps {
     bold?: boolean
     disabled?: boolean
     onClick?: () => void
+    /** 버튼의 높이를 설정합니다 */
+    height?: 'high' | 'medium'
 }
 
-const Button = ({ size = 'small', color = 'primary', label, variant = 'contain', bold, ...props }: ButtonProps) => {
+const Button = ({
+    size = 'small',
+    color = 'primary',
+    label,
+    variant = 'contain',
+    bold,
+    type = 'button',
+    height = 'medium',
+    ...props
+}: ButtonProps) => {
     const classNames = cn(style.button, {
         [style[`button__size__${size}`]]: size,
+        [style[`button__height__${height}`]]: height,
         [style[`button__color__${color}`]]: variant === 'contain' && color,
         [style.button__outline]: variant === 'outline',
         [style.button__bold]: bold,
     })
 
     return (
-        <button type='button' className={classNames} {...props}>
+        <button type={type} className={classNames} {...props}>
             {label}
         </button>
     )
