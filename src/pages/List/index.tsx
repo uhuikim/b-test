@@ -6,6 +6,7 @@ import { useQuery } from 'react-query'
 import style from './style.module.scss'
 import { useNavigate } from 'react-router-dom'
 import Table from 'components/Table'
+import Loader from 'components/Loader'
 
 // const headList = [
 //     { id: 'placeName', value: '매장명' },
@@ -19,8 +20,14 @@ const headList = ['매장명', '성명', '연락처', '인입경로', '생성일
 
 const List = () => {
     const navigate = useNavigate()
-    const { isLoading, error, data } = useQuery(consultingKeys.list(), () =>
-        fetch('/api/inbound').then((res) => res.json()),
+    const { isLoading, error, data } = useQuery(
+        consultingKeys.list(),
+        () => fetch('/api/inbound').then((res) => res.json()),
+        {
+            onError: (err) => {
+                console.log(err)
+            },
+        },
     )
 
     const handleClick = () => {
@@ -31,11 +38,12 @@ const List = () => {
 
     return (
         <div className={style.container}>
+            <Loader />
             <div className={style.header}>
                 <Typography text='상담 인입 목록' type='title' />
                 <Button label='+ 추가' variant='contain' color='primary' bold onClick={handleClick} />
             </div>
-            <Table headList={headList} data={data} />
+            <Table headList={headList} data={data || []} />
         </div>
     )
 }
