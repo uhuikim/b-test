@@ -9,7 +9,7 @@ interface ButtonProps {
     /** 버튼의 색을 지정합니다 */
     color?: ButtonColors
     /** 버튼의 사이즈를 지정합니다 */
-    size?: 'small' | 'medium' | 'half' | 'full'
+    size?: 'small' | 'medium' | 'full'
     /** 버튼의 텍스트를 입력합니다 */
     label: string
     /** 버튼의 굵기를 설정합니다 */

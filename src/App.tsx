@@ -4,8 +4,9 @@ import List from 'pages/List'
 import Upload from 'pages/Upload'
 import Detail from 'pages/Detail'
 
-import 'styles/globals.scss'
 import ErrorBoundary from 'components/Error/ErrorBoundary'
+
+import 'styles/globals.scss'
 
 function App() {
     return (

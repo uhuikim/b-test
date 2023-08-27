@@ -1,5 +1,7 @@
 import { worker } from 'mocks/browser'
 import React from 'react'
+import { RecoilRoot } from 'recoil'
+
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -15,11 +17,13 @@ const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <ReactQueryDevtools initialIsOpen={true} />
-                <App />
-            </BrowserRouter>
-        </QueryClientProvider>
+        <RecoilRoot>
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                    <ReactQueryDevtools initialIsOpen={true} />
+                    <App />
+                </BrowserRouter>
+            </QueryClientProvider>
+        </RecoilRoot>
     </React.StrictMode>,
 )

@@ -2,16 +2,16 @@ import Button from 'components/Button'
 import { StoreItem } from 'mocks/data'
 
 import style from './style.module.scss'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
     headList: Array<string>
     data: StoreItem[]
+    handleDelete: () => void
 }
-const Table = ({ headList, data }: Props) => {
+const Table = ({ headList, data, handleDelete }: Props) => {
     const navigate = useNavigate()
-    console.log(`**************data***************:${data} `)
-    console.log(data)
+
     return (
         <table className={style.table}>
             <thead>
@@ -27,14 +27,14 @@ const Table = ({ headList, data }: Props) => {
                         const { id, placeName, name, phone, inboundSource, createdAt } = el
 
                         return (
-                            <tr key={placeName + name} onClick={() => navigate(`/detail/${id}`)}>
+                            <tr key={placeName + name}>
                                 <td>{placeName}</td>
                                 <td>{name}</td>
                                 <td>{phone}</td>
                                 <td>{inboundSource}</td>
                                 <td>{createdAt}</td>
                                 <td>
-                                    <Button label='삭제' size='medium' />
+                                    <Button label='삭제' size='medium' onClick={handleDelete} />
                                 </td>
                             </tr>
                         )
