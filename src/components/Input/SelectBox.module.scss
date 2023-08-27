@@ -36,7 +36,7 @@
     line-height: 17px;
 
     &:hover {
-        background: #f1f1f1;
+        background: $gray-100;
     }
 
     > button {
@@ -55,7 +55,7 @@
     line-height: 17px;
 
     &::after {
-        content: '✔';
+        content: '✓';
         font-size: 12px;
         position: absolute;
         right: 20px;

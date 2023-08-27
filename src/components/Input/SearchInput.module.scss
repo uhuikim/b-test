@@ -1,0 +1,35 @@
+.container {
+    padding: 10px;
+    border-radius: 5px;
+    background: $gray-100;
+    margin-top: 30px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    > input {
+        width: 320px;
+        border: 1px solid $border;
+        border-radius: 5px;
+        outline: none;
+        padding: 10px 10px 10px 30px;
+
+        &::placeholder {
+            color: $gray;
+            font-size: 14px;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    > svg {
+        position: absolute;
+        left: 8px;
+        color: $gray;
+    }
+}

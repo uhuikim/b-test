@@ -12,6 +12,8 @@ import { useRecoilState } from 'recoil'
 import ConfirmModal from 'components/Modal/ConfirmModal'
 import MessageModal from 'components/Modal/MessageModal'
 import ErrorModal from 'components/Modal/ErrorModal'
+import SearchInput from 'components/Input/SearchInput'
+import Divider from 'components/Divider/Divider'
 
 // const headList = [
 //     { id: 'placeName', value: '매장명' },
@@ -47,7 +49,8 @@ const List = () => {
                 <Typography text='상담 인입 목록' type='title' />
                 <Button label='+ 추가' variant='contain' color='primary' height='high' bold onClick={handleClick} />
             </div>
-
+            <SearchInput />
+            <Divider />
             {isLoading ? <Spinner /> : <Table headList={headList} data={data} handleDelete={handleDelete} />}
             {openModal.isConfirmOpen && <ConfirmModal type='delete' />}
             {openModal.isMessageOpen && <MessageModal />}
