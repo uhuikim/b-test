@@ -9,10 +9,13 @@ import { AiOutlineExclamationCircle } from 'react-icons/ai'
 type Props = { type: 'delete' | 'upload' }
 
 const ConfirmModal = ({ type }: Props) => {
-    const setOpenModal = useSetRecoilState(modalState)
+    const setModal = useSetRecoilState(modalState)
 
     const handleClose = () => {
-        setOpenModal((prev) => ({ ...prev, isConfirmOpen: false }))
+        setModal((prev) => ({ ...prev, isConfirmOpen: false }))
+    }
+    const handleConfirm = () => {
+        setModal((prev) => ({ ...prev, isConfirmed: true, isConfirmOpen: false }))
     }
 
     return (
@@ -30,6 +33,7 @@ const ConfirmModal = ({ type }: Props) => {
                         label={type === 'delete' ? '삭제' : '등록'}
                         size='full'
                         color={type === 'delete' ? 'error' : 'primary'}
+                        onClick={handleConfirm}
                     />
                 </div>
             </div>

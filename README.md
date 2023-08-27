@@ -9,6 +9,7 @@
 -   react-query 사용
 -   상태관리를 위한 recoil 사용
 -   react-icons 아이콘 사용
+-   form validation을 위한 react-hook-form 사용
 
 # 테스트
 
