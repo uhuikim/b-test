@@ -6,7 +6,6 @@ import { useQuery } from 'react-query'
 import style from './style.module.scss'
 import { useNavigate } from 'react-router-dom'
 import Table from 'components/Table'
-import Loader from 'components/Loader'
 
 // const headList = [
 //     { id: 'placeName', value: '매장명' },
@@ -38,7 +37,6 @@ const List = () => {
 
     return (
         <div className={style.container}>
-            <Loader />
             <div className={style.header}>
                 <Typography text='상담 인입 목록' type='title' />
                 <Button label='+ 추가' variant='contain' color='primary' bold onClick={handleClick} />

@@ -1,6 +1,6 @@
 import style from './style.module.scss'
 
-const Loader = () => {
+const Spinner = () => {
     return (
         <div className={style.container}>
             <div className={style.spinner} />
@@ -9,4 +9,4 @@ const Loader = () => {
     )
 }
 
-export default Loader
+export default Spinner
