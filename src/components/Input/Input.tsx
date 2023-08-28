@@ -1,9 +1,9 @@
 import React from 'react'
+import { useFormContext } from 'react-hook-form'
 
 import cn from 'classnames'
 
 import style from './Input.module.scss'
-import { UseFormRegister, useFormContext } from 'react-hook-form'
 
 export type Props = {
     id: string
@@ -14,10 +14,25 @@ export type Props = {
     error?: boolean
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
     readonly?: boolean
+    maxLength?: number
 }
 
-const Input = ({ id, label, type = 'text', value, placeholder, error, readonly = false, ...props }: Props) => {
-    const { register } = useFormContext()
+const Input = ({
+    id,
+    label,
+    type = 'text',
+    value,
+    placeholder,
+    error,
+    readonly = false,
+    maxLength,
+    ...props
+}: Props) => {
+    const {
+        register,
+        formState: { errors },
+    } = useFormContext()
+
     return (
         <div>
             <label className={style.label} htmlFor={id}>
@@ -32,9 +47,11 @@ const Input = ({ id, label, type = 'text', value, placeholder, error, readonly =
                     [style.input__error]: error,
                 })}
                 readOnly={readonly}
+                maxLength={maxLength}
                 {...props}
                 {...register(id)}
             />
+            <p className={style.errorMessage}>{errors?.[id] && errors?.[id]?.message?.toString()}</p>
         </div>
     )
 }

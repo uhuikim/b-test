@@ -43,7 +43,7 @@ const SelectBox = ({ options, selected, label, id }: Props) => {
             <span className={style.label}>{label}</span>
             <div className={cn(style.select)} ref={selectBoxRef}>
                 <button type='button' onClick={handleMenuOpen} className={style.selectButton}>
-                    {selected}
+                    {selected || '선택'}
                     <BsChevronDown />
                 </button>
 
