@@ -4,16 +4,19 @@ import cn from 'classnames'
 
 import style from './SelectBox.module.scss'
 import { BsChevronDown } from 'react-icons/bs'
+import { useFormContext } from 'react-hook-form'
 
 type DataType = { key: string; label: string }
 
 type Props = {
     options: Array<DataType>
-    selected: string
+    selected?: string
     label?: string
+    id: string
 }
 
-const SelectBox = ({ options, selected, label }: Props) => {
+const SelectBox = ({ options, selected, label, id }: Props) => {
+    const { setValue } = useFormContext()
     const selectBoxRef = useRef<HTMLDivElement | null>(null)
     const [menuOpen, setMenuOpen] = useState<boolean>(false)
 
@@ -22,6 +25,7 @@ const SelectBox = ({ options, selected, label }: Props) => {
     }
     const handleSelectItem = (el: DataType) => {
         setMenuOpen(false)
+        setValue(id, el.key)
     }
 
     // 외부 클릭시 드롭메뉴 close

@@ -11,6 +11,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.0",
     "axios": "^1.5.0",
     "classnames": "^2.3.2",
     "node-sass": "^9.0.0",
@@ -20,7 +21,8 @@
     "react-icons": "^4.10.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.15.0",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.3.2",

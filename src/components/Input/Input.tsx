@@ -3,12 +3,12 @@ import React from 'react'
 import cn from 'classnames'
 
 import style from './Input.module.scss'
+import { UseFormRegister, useFormContext } from 'react-hook-form'
 
 export type Props = {
-    id?: string
+    id: string
     label?: string
     type?: 'text' | 'password' | 'number'
-    name?: string
     value?: string | number
     placeholder?: string
     error?: boolean
@@ -16,18 +16,8 @@ export type Props = {
     readonly?: boolean
 }
 
-const Input = ({
-    id,
-    label,
-    type = 'text',
-    name,
-    value,
-    placeholder,
-    error,
-    onChange,
-    readonly = false,
-    ...props
-}: Props) => {
+const Input = ({ id, label, type = 'text', value, placeholder, error, readonly = false, ...props }: Props) => {
+    const { register } = useFormContext()
     return (
         <div>
             <label className={style.label} htmlFor={id}>
@@ -36,15 +26,14 @@ const Input = ({
             <input
                 id={id}
                 type={type}
-                name={name}
                 value={value}
                 placeholder={placeholder}
                 className={cn(style.input, {
                     [style.input__error]: error,
                 })}
-                onChange={onChange}
                 readOnly={readonly}
                 {...props}
+                {...register(id)}
             />
         </div>
     )
