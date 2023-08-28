@@ -1,13 +1,13 @@
-import Button from 'components/Button'
 import { StoreItem } from 'mocks/data'
 
 import style from './style.module.scss'
 import { useNavigate } from 'react-router-dom'
+import TableCell from './TableCell'
 
 type Props = {
     headList: Array<string>
     data: StoreItem[]
-    handleDelete: () => void
+    handleDelete: (id: number) => void
 }
 const Table = ({ headList, data, handleDelete }: Props) => {
     const navigate = useNavigate()
@@ -22,23 +22,7 @@ const Table = ({ headList, data, handleDelete }: Props) => {
                 </tr>
             </thead>
             <tbody>
-                {data.length !== 0 &&
-                    data.map((el) => {
-                        const { id, placeName, name, phone, inboundSource, createdAt } = el
-
-                        return (
-                            <tr key={placeName + name}>
-                                <td>{placeName}</td>
-                                <td>{name}</td>
-                                <td>{phone}</td>
-                                <td>{inboundSource}</td>
-                                <td>{createdAt}</td>
-                                <td>
-                                    <Button label='삭제' size='medium' onClick={handleDelete} />
-                                </td>
-                            </tr>
-                        )
-                    })}
+                {data.length !== 0 && data.map((el) => <TableCell key={el.id} handleDelete={handleDelete} data={el} />)}
             </tbody>
         </table>
     )

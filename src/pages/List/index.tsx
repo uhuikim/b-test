@@ -1,7 +1,7 @@
 import Button from 'components/Button'
 import Typography from 'components/Typography'
 import { consultingKeys } from 'lib/queryKeyFactory'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 
 import style from './style.module.scss'
 import { useNavigate } from 'react-router-dom'
@@ -14,6 +14,8 @@ import MessageModal from 'components/Modal/MessageModal'
 import ErrorModal from 'components/Modal/ErrorModal'
 import SearchInput from 'components/Input/SearchInput'
 import Divider from 'components/Divider/Divider'
+import { deleteItem, getItem } from 'lib/api/consulting'
+import { useEffect } from 'react'
 
 // const headList = [
 //     { id: 'placeName', value: '매장명' },
@@ -28,19 +30,19 @@ const headList = ['매장명', '성명', '연락처', '인입경로', '생성일
 const List = () => {
     const navigate = useNavigate()
     const [openModal, setOpenModal] = useRecoilState(modalState)
-    const { isLoading, error, data } = useQuery(consultingKeys.list(), () =>
-        fetch('/api/inbound')
-            .then((res) => res.json())
-            .catch((error) => {
-                throw error
-            }),
-    )
+    const { isLoading, error, data } = useQuery(consultingKeys.list(), getItem)
+
+    const deleteMutate = useMutation({
+        mutationFn: () => deleteItem(3),
+    })
 
     const handleClick = () => {
         navigate('/upload')
     }
-    const handleDelete = () => {
+    const handleDelete = (id: number) => {
         setOpenModal((prev) => ({ ...prev, isConfirmOpen: true }))
+
+        console.log(id)
     }
 
     return (
