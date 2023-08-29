@@ -9,6 +9,10 @@ import * as yup from 'yup'
 
 import style from './style.module.scss'
 import { useEffect } from 'react'
+import { useMutation } from 'react-query'
+import { postItem } from 'lib/api/consulting'
+import { useNavigate } from 'react-router-dom'
+import Spinner from 'components/Spinner'
 export interface IFormInput {
     inboundSource?: string
     inboundSourceEtc?: string
@@ -46,6 +50,8 @@ const schema = yup
     .required()
 
 const Form = () => {
+    const navigate = useNavigate()
+
     const methods = useForm<IFormInput>({
         defaultValues: {
             inboundSource: '',
@@ -59,8 +65,18 @@ const Form = () => {
         resolver: yupResolver<IFormInput>(schema),
         mode: 'onBlur',
     })
+    const { mutate, isLoading } = useMutation((data) => postItem(data), {
+        onSuccess: () => {
+            navigate('/')
+        },
+    })
 
-    const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data)
+    const onSubmit: SubmitHandler<IFormInput> = (data) => {
+        const apiData = { ...data, inboundSource: data.inboundSourceEtc || data.inboundSource }
+        delete apiData.inboundSourceEtc
+
+        mutate(apiData)
+    }
 
     useEffect(() => {
         methods.setFocus('name')
@@ -100,6 +116,7 @@ const Form = () => {
                     disabled={!methods.formState.isValid}
                 />
             </form>
+            {isLoading && <Spinner dim />}
         </FormProvider>
     )
 }

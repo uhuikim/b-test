@@ -1,3 +1,4 @@
+import { IFormInput } from 'components/Form'
 import api from '.'
 
 export const getItem = () =>
@@ -24,22 +25,14 @@ export const getDetailItem = (id: string) =>
             throw error
         })
 
-export const postItem = (data: {
-    inboundSource: string
-    name: string
-    phone: string
-    placeName: string
-    note: string
-    agreement: true
-}) =>
-    api
-        .post(`/api/inbound`, {
-            data,
-        })
+export const postItem = (data: IFormInput) => {
+    return api
+        .post(`/api/inbound`, { ...data })
         .then((response) => response?.data)
         .catch((error) => {
             throw error
         })
+}
 
 export const deleteItem = (id: number) =>
     api
