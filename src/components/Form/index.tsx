@@ -23,7 +23,13 @@ const schema = yup
     .shape({
         inboundSource: yup.string(),
         name: yup.string().max(50, '50자 이하만 입력 가능합니다.').required('올바른 성명을 입력해 주세요.'),
-        phone: yup.string().matches(/^01(?:0|[2-8])-\d{3,4}-\d{4}$/, '올바른 휴대폰 번호를 입력하세요.'),
+        phone: yup
+            .string()
+            .notRequired()
+            .matches(/^01(?:0|[2-8])-\d{3,4}-\d{4}$/, {
+                message: '올바른 휴대폰 번호를 입력하세요.',
+                excludeEmptyString: true,
+            }),
         placeName: yup
             .string()
             .max(50, '50자 이하만 입력 가능합니다.')
@@ -49,6 +55,7 @@ const Form = () => {
         methods.setFocus('name')
     }, [methods.setFocus])
 
+    console.log(methods.formState.errors, methods.formState.isDirty)
     return (
         <FormProvider {...methods}>
             <form className={style.form} onSubmit={methods.handleSubmit(onSubmit)}>
@@ -80,7 +87,7 @@ const Form = () => {
                     type='submit'
                     height='high'
                     bold
-                    // disabled={!methods.formState.isValid}
+                    disabled={!methods.formState.isValid}
                 />
             </form>
         </FormProvider>
