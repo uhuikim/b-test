@@ -1,7 +1,6 @@
-import React from 'react'
 import ModalPortal from './ModalPortal'
 import modalState from 'recoil/modalState'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import style from './ConfirmModal.module.scss'
 import Button from 'components/Button'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
@@ -13,13 +12,12 @@ type Props = {
 }
 
 const ErrorModal = ({ error, resetErrorBoundary, message }: Props) => {
-    const [openModal, setOpenModal] = useRecoilState(modalState)
+    const setModal = useSetRecoilState(modalState)
 
     const handleClose = () => {
-        setOpenModal((prev) => ({ ...prev, isErrorOpen: false }))
+        setModal((prev) => ({ ...prev, isErrorOpen: false }))
         resetErrorBoundary()
     }
-    console.log(error)
 
     return (
         <ModalPortal>

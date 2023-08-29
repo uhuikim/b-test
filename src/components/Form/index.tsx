@@ -9,7 +9,8 @@ import * as yup from 'yup'
 
 import style from './style.module.scss'
 import { useEffect } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { postItem } from 'lib/api/consulting'
 import { useNavigate } from 'react-router-dom'
 import Spinner from 'components/Spinner'

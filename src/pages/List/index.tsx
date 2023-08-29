@@ -1,8 +1,7 @@
 import Button from 'components/Button'
 import Typography from 'components/Typography'
 import { consultingKeys } from 'lib/queryKeyFactory'
-import { useMutation, useQueryClient, useQueryErrorResetBoundary } from 'react-query'
-
+import { useMutation, useQueryClient, useQueryErrorResetBoundary } from '@tanstack/react-query'
 import style from './style.module.scss'
 import { useNavigate } from 'react-router-dom'
 import Table from 'components/Table'

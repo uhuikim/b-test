@@ -13,14 +13,17 @@ type Props = {
     selected?: string
     label?: string
     id: string
+    readonly?: boolean
 }
 
-const SelectBox = ({ options, selected, label, id }: Props) => {
+const SelectBox = ({ options, selected, label, id, readonly }: Props) => {
     const { setValue } = useFormContext()
     const selectBoxRef = useRef<HTMLDivElement | null>(null)
     const [menuOpen, setMenuOpen] = useState<boolean>(false)
 
     const handleMenuOpen = () => {
+        if (readonly) return
+
         setMenuOpen((prev) => !prev)
     }
     const handleSelectItem = (el: DataType) => {
