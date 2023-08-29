@@ -1,6 +1,7 @@
 import Button from 'components/Button'
 import { StoreItem } from 'mocks/data'
 import { useCallback, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
 import modalState from 'recoil/modalState'
 
@@ -10,17 +11,25 @@ type Props = {
 }
 
 const TableCell = ({ data, handleDelete }: Props) => {
+    const navigate = useNavigate()
     const { id, placeName, name, phone, inboundSource, createdAt } = data
 
     return (
-        <tr key={placeName + name}>
+        <tr key={placeName + name} onClick={() => navigate(`/detail/${id}`)}>
             <td>{placeName}</td>
             <td>{name}</td>
             <td>{phone}</td>
             <td>{inboundSource}</td>
             <td>{createdAt}</td>
-            <td>
-                <Button label='삭제' size='medium' onClick={() => handleDelete(id)} />
+            <td style={{ zIndex: 999 }}>
+                <Button
+                    label='삭제'
+                    size='medium'
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        handleDelete(id)
+                    }}
+                />
             </td>
         </tr>
     )

@@ -14,8 +14,6 @@ type Props = {
 }
 
 const Table = ({ headList, handleDelete }: Props) => {
-    const navigate = useNavigate()
-
     const { data } = useQuery<AxiosResponse, Error, StoreItem[]>(consultingKeys.list(), getItem)
 
     return (
