@@ -9,10 +9,13 @@ import * as yup from 'yup'
 
 import style from './style.module.scss'
 import { useEffect } from 'react'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { postItem } from 'lib/api/consulting'
 import { useNavigate } from 'react-router-dom'
 import Spinner from 'components/Spinner'
+import { consultingKeys } from 'lib/queryKeyFactory'
+import { useSetRecoilState } from 'recoil'
+import modalState from 'recoil/modalState'
 export interface IFormInput {
     inboundSource?: string
     inboundSourceEtc?: string
@@ -51,6 +54,8 @@ const schema = yup
 
 const Form = () => {
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
+    const setModal = useSetRecoilState(modalState)
 
     const methods = useForm<IFormInput>({
         defaultValues: {
@@ -68,6 +73,10 @@ const Form = () => {
     const { mutate, isLoading } = useMutation((data) => postItem(data), {
         onSuccess: () => {
             navigate('/')
+            queryClient.invalidateQueries(consultingKeys.list())
+        },
+        onError: () => {
+            setModal((prev) => ({ ...prev, isMessageOpen: true, messageType: 'fail' }))
         },
     })
 

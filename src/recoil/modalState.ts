@@ -5,14 +5,14 @@ interface Props {
     isConfirmOpen?: boolean
     isErrorOpen?: boolean
 
-    isConfirmed?: boolean
+    messageType?: string
 }
 
 const initialState: Props = {
     isMessageOpen: false,
     isConfirmOpen: false,
     isErrorOpen: false,
-    isConfirmed: false,
+    messageType: '',
 }
 
 const modalState = atom({

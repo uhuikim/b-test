@@ -6,16 +6,18 @@ import style from './ConfirmModal.module.scss'
 import Button from 'components/Button'
 
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
-type Props = { type: 'delete' | 'upload' }
+type Props = { type: 'delete' | 'upload'; onConfirm: () => void }
 
-const ConfirmModal = ({ type }: Props) => {
+const ConfirmModal = ({ type, onConfirm }: Props) => {
     const setModal = useSetRecoilState(modalState)
 
     const handleClose = () => {
         setModal((prev) => ({ ...prev, isConfirmOpen: false }))
     }
+
     const handleConfirm = () => {
-        setModal((prev) => ({ ...prev, isConfirmed: true, isConfirmOpen: false }))
+        onConfirm()
+        setModal((prev) => ({ ...prev, isConfirmOpen: false }))
     }
 
     return (

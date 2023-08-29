@@ -13,7 +13,14 @@ if (import.meta.env.MODE === 'development') {
     worker.start()
 }
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: 0,
+            suspense: true,
+        },
+    },
+})
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>

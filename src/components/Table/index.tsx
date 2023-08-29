@@ -3,14 +3,20 @@ import { StoreItem } from 'mocks/data'
 import style from './style.module.scss'
 import { useNavigate } from 'react-router-dom'
 import TableCell from './TableCell'
+import { useQuery } from 'react-query'
+import { consultingKeys } from 'lib/queryKeyFactory'
+import { getItem } from 'lib/api/consulting'
+import { AxiosResponse } from 'axios'
 
 type Props = {
     headList: Array<string>
-    data: StoreItem[]
     handleDelete: (id: number) => void
 }
-const Table = ({ headList, data, handleDelete }: Props) => {
+
+const Table = ({ headList, handleDelete }: Props) => {
     const navigate = useNavigate()
+
+    const { data } = useQuery<AxiosResponse, Error, StoreItem[]>(consultingKeys.list(), getItem)
 
     return (
         <table className={style.table}>
@@ -21,9 +27,7 @@ const Table = ({ headList, data, handleDelete }: Props) => {
                     ))}
                 </tr>
             </thead>
-            <tbody>
-                {data.length !== 0 && data.map((el) => <TableCell key={el.id} handleDelete={handleDelete} data={el} />)}
-            </tbody>
+            <tbody>{data && data.map((el) => <TableCell key={el.id} handleDelete={handleDelete} data={el} />)}</tbody>
         </table>
     )
 }

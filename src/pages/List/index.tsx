@@ -1,7 +1,7 @@
 import Button from 'components/Button'
 import Typography from 'components/Typography'
 import { consultingKeys } from 'lib/queryKeyFactory'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQueryClient, useQueryErrorResetBoundary } from 'react-query'
 
 import style from './style.module.scss'
 import { useNavigate } from 'react-router-dom'
@@ -10,12 +10,12 @@ import Spinner from 'components/Spinner'
 import modalState from 'recoil/modalState'
 import { useRecoilState } from 'recoil'
 import ConfirmModal from 'components/Modal/ConfirmModal'
-import MessageModal from 'components/Modal/MessageModal'
 import ErrorModal from 'components/Modal/ErrorModal'
 import SearchInput from 'components/Input/SearchInput'
 import Divider from 'components/Divider/Divider'
-import { deleteItem, getItem } from 'lib/api/consulting'
-import { useEffect } from 'react'
+import { deleteItem } from 'lib/api/consulting'
+import { Suspense, useState } from 'react'
+import ErrorBoundary from 'components/Error/ErrorBoundary'
 
 // const headList = [
 //     { id: 'placeName', value: '매장명' },
@@ -28,21 +28,24 @@ import { useEffect } from 'react'
 const headList = ['매장명', '성명', '연락처', '인입경로', '생성일', '']
 
 const List = () => {
+    const queryClient = useQueryClient()
     const navigate = useNavigate()
     const [openModal, setOpenModal] = useRecoilState(modalState)
-    const { isLoading, error, data } = useQuery(consultingKeys.list(), getItem)
+    const [deleteId, setDeleteId] = useState(0)
 
-    const deleteMutate = useMutation({
-        mutationFn: () => deleteItem(3),
+    const { mutate: deleteMutate } = useMutation(() => deleteItem(deleteId), {
+        onSuccess: () => {
+            queryClient.invalidateQueries(consultingKeys.list())
+        },
     })
-
+    const { reset } = useQueryErrorResetBoundary()
     const handleClick = () => {
         navigate('/upload')
     }
+
     const handleDelete = (id: number) => {
         setOpenModal((prev) => ({ ...prev, isConfirmOpen: true }))
-
-        console.log(id)
+        setDeleteId(id)
     }
 
     return (
@@ -53,10 +56,12 @@ const List = () => {
             </div>
             <SearchInput />
             <Divider />
-            {isLoading ? <Spinner /> : <Table headList={headList} data={data} handleDelete={handleDelete} />}
-            {openModal.isConfirmOpen && <ConfirmModal type='delete' />}
-            {openModal.isMessageOpen && <MessageModal />}
-            {openModal.isErrorOpen && <ErrorModal />}
+            <ErrorBoundary onReset={reset} fallback={ErrorModal} message='상담 목록을 불러오는데 실패 하였습니다.'>
+                <Suspense fallback={<Spinner />}>
+                    <Table headList={headList} handleDelete={handleDelete} />
+                </Suspense>
+            </ErrorBoundary>
+            {openModal.isConfirmOpen && <ConfirmModal type='delete' onConfirm={deleteMutate} />}
         </div>
     )
 }
