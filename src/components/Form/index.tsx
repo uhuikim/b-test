@@ -10,11 +10,12 @@ import * as yup from 'yup'
 import style from './style.module.scss'
 import { useEffect } from 'react'
 export interface IFormInput {
-    inboundSource: string
+    inboundSource?: string
+    inboundSourceEtc?: string
     name: string
-    phone: string
+    phone?: string | null
     placeName: string
-    note: string
+    note?: string
     agreement: boolean
 }
 
@@ -22,6 +23,7 @@ const schema = yup
     .object()
     .shape({
         inboundSource: yup.string(),
+        inboundSourceEtc: yup.string(),
         name: yup.string().max(50, '50자 이하만 입력 가능합니다.').required('올바른 성명을 입력해 주세요.'),
         phone: yup
             .string()
@@ -39,13 +41,22 @@ const schema = yup
             )
             .required('올바른 매장명을 입력해주세요.'),
         note: yup.string().max(500, '500자 이하만 입력 가능합니다.'),
-        agreement: yup.boolean().oneOf([true], '동의에 체크해주세요'),
+        agreement: yup.boolean().required().oneOf([true], '동의에 체크해주세요'),
     })
     .required()
 
 const Form = () => {
-    const methods = useForm({
-        resolver: yupResolver(schema),
+    const methods = useForm<IFormInput>({
+        defaultValues: {
+            inboundSource: '',
+            inboundSourceEtc: '',
+            name: '',
+            phone: '',
+            placeName: '',
+            note: '',
+            agreement: false,
+        },
+        resolver: yupResolver<IFormInput>(schema),
         mode: 'onBlur',
     })
 
@@ -55,7 +66,6 @@ const Form = () => {
         methods.setFocus('name')
     }, [methods.setFocus])
 
-    console.log(methods.formState.errors, methods.formState.isDirty)
     return (
         <FormProvider {...methods}>
             <form className={style.form} onSubmit={methods.handleSubmit(onSubmit)}>
@@ -73,8 +83,8 @@ const Form = () => {
                         selected={methods.watch('inboundSource')}
                         id='inboundSource'
                     />
-                    {methods.watch('inboundSource') === 'etc' && (
-                        <Input id='pathetc' placeholder='인입경로를 입력해주세요' />
+                    {methods.watch('inboundSource') === '기타' && (
+                        <Input id='inboundSourceEtc' placeholder='인입경로를 입력해주세요' />
                     )}
                 </div>
 
