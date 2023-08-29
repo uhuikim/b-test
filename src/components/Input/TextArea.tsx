@@ -10,9 +10,10 @@ export type Props = {
     error?: boolean
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
     readonly?: boolean
+    maxLength?: number
 }
 
-const TextArea = ({ id, label, value, placeholder, error, onChange, readonly, ...props }: Props) => {
+const TextArea = ({ id, label, value, placeholder, error, onChange, readonly, maxLength, ...props }: Props) => {
     const { register } = useFormContext()
     return (
         <div>
@@ -27,6 +28,7 @@ const TextArea = ({ id, label, value, placeholder, error, onChange, readonly, ..
                     [style.textArea__error]: error,
                 })}
                 readOnly={readonly}
+                maxLength={maxLength}
                 {...props}
                 {...register(id)}
             />

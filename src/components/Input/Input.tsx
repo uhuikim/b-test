@@ -8,7 +8,7 @@ import style from './Input.module.scss'
 export type Props = {
     id: string
     label?: string
-    type?: 'text' | 'password' | 'number'
+    type?: 'text' | 'number' | 'tel'
     value?: string | number
     placeholder?: string
     error?: boolean
@@ -30,6 +30,7 @@ const Input = ({
 }: Props) => {
     const {
         register,
+        setValue,
         formState: { errors },
     } = useFormContext()
 
@@ -49,7 +50,26 @@ const Input = ({
                 readOnly={readonly}
                 maxLength={maxLength}
                 {...props}
-                {...register(id)}
+                {...register(id, {
+                    onChange: (e) => {
+                        const { value } = e.target
+                        if (id === 'name' || id === 'note') {
+                            setValue(id, value.replace(/^\s+|[^a-zA-Zㄱ-ㅎ가-힣\s]+/g, ''))
+                        }
+                        if (id === 'phone') {
+                            setValue(
+                                id,
+                                value.replace(/[^0-9]/g, '').replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
+                            )
+                        }
+                    },
+                    onBlur: (e) => {
+                        const { value } = e.target
+                        if (id === 'name' || 'note') {
+                            setValue(id, value.replace(/\s+$/g, ''))
+                        }
+                    },
+                })}
             />
             <p className={style.errorMessage}>{errors?.[id] && errors?.[id]?.message?.toString()}</p>
         </div>

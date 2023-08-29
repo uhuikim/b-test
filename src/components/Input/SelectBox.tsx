@@ -25,7 +25,7 @@ const SelectBox = ({ options, selected, label, id }: Props) => {
     }
     const handleSelectItem = (el: DataType) => {
         setMenuOpen(false)
-        setValue(id, el.key)
+        setValue(id, el.label)
     }
 
     // 외부 클릭시 드롭메뉴 close
