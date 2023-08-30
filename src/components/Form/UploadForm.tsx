@@ -62,7 +62,10 @@ const UploadForm = () => {
     const { mutate, isLoading } = useUploadeItem()
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        const apiData = { ...data, inboundSource: data.inboundSourceEtc || data.inboundSource }
+        const apiData = {
+            ...data,
+            inboundSource: data.inboundSourceEtc ? `기타(${data.inboundSourceEtc})` : data.inboundSource,
+        }
         delete apiData.inboundSourceEtc
 
         mutate(apiData)
