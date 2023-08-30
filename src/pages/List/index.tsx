@@ -26,6 +26,7 @@ const headList = [
     { id: 'phone', value: '연락처' },
     { id: 'inboundSource', value: '인입경로' },
     { id: 'createdAt', value: '생성일' },
+    { id: 'empty', value: '' },
 ]
 
 const List = () => {

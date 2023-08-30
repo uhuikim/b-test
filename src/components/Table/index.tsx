@@ -1,11 +1,7 @@
-import { StoreItem } from 'mocks/data'
+import TableCell from './TableCell'
+import useGetList from 'lib/models/useGetList'
 
 import style from './style.module.scss'
-import TableCell from './TableCell'
-import { useQuery } from '@tanstack/react-query'
-import { consultingKeys } from 'lib/queryKeyFactory'
-import { getItem, searchItem } from 'lib/api/consulting'
-import { AxiosResponse } from 'axios'
 
 type Props = {
     headList: Array<{ id: string; value: string }>
@@ -14,15 +10,7 @@ type Props = {
 }
 
 const Table = ({ headList, handleDelete, query }: Props) => {
-    const { data } = useQuery<AxiosResponse, Error, StoreItem[]>(consultingKeys.list(), getItem, { enabled: !query })
-
-    const { data: searchData } = useQuery<AxiosResponse, Error, StoreItem[]>(
-        consultingKeys.search(query),
-        () => searchItem(query),
-        {
-            enabled: !!query,
-        },
-    )
+    const { data, searchData } = useGetList(query)
 
     return (
         <table className={style.table}>
