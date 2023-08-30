@@ -1,14 +1,15 @@
 import ModalPortal from './ModalPortal'
 import modalState from 'recoil/modalState'
 import { useSetRecoilState } from 'recoil'
+import { AiOutlineExclamationCircle } from 'react-icons/ai'
+
+import { Button } from 'components'
 
 import style from './ConfirmModal.module.scss'
-import Button from 'components/Button'
 
-import { AiOutlineExclamationCircle } from 'react-icons/ai'
-type Props = { type: 'delete' | 'upload'; onConfirm: () => void }
+type Props = { type: 'delete' | 'upload'; onConfirm: () => void; message: string }
 
-const ConfirmModal = ({ type, onConfirm }: Props) => {
+const ConfirmModal = ({ type, onConfirm, message }: Props) => {
     const setModal = useSetRecoilState(modalState)
 
     const handleClose = () => {
@@ -26,7 +27,7 @@ const ConfirmModal = ({ type, onConfirm }: Props) => {
                 <AiOutlineExclamationCircle color={type === 'delete' ? '#d92d20' : '#439D5C'} />
 
                 <div className={style.content}>
-                    <p>{type === 'delete' ? '삭제' : '등록'}하시겠습니까?</p>
+                    <p>{message}</p>
                 </div>
 
                 <div className={style.footer}>

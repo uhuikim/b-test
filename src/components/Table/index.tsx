@@ -1,7 +1,6 @@
 import { StoreItem } from 'mocks/data'
 
 import style from './style.module.scss'
-import { useNavigate } from 'react-router-dom'
 import TableCell from './TableCell'
 import { useQuery } from '@tanstack/react-query'
 import { consultingKeys } from 'lib/queryKeyFactory'
@@ -9,7 +8,7 @@ import { getItem, searchItem } from 'lib/api/consulting'
 import { AxiosResponse } from 'axios'
 
 type Props = {
-    headList: Array<string>
+    headList: Array<{ id: string; value: string }>
     handleDelete: (id: number) => void
     query: string
 }
@@ -30,7 +29,7 @@ const Table = ({ headList, handleDelete, query }: Props) => {
             <thead>
                 <tr>
                     {headList.map((head) => (
-                        <th key={head}>{head}</th>
+                        <th key={head.id}>{head.value}</th>
                     ))}
                 </tr>
             </thead>

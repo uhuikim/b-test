@@ -1,6 +1,6 @@
 import Typography from 'components/Typography'
 import style from './style.module.scss'
-import Form from 'components/Form'
+import Form from 'components/Form/UploadForm'
 import { useRecoilState } from 'recoil'
 import modalState from 'recoil/modalState'
 import MessageModal from 'components/Modal/MessageModal'

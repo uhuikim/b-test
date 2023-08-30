@@ -6,12 +6,15 @@
         border-bottom: 1px solid $border;
         padding: 20px 10px;
         text-align: start;
+        vertical-align: middle;
     }
 
     th {
         color: $gray;
         font-weight: 800;
         font-size: 14px;
+
+        width: calc(100% / 6);
     }
     td {
         cursor: pointer;

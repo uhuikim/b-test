@@ -1,24 +1,23 @@
 import style from './style.module.scss'
 import cn from 'classnames'
 
-type ButtonColors = 'primary' | 'error'
-
 interface ButtonProps {
     type?: 'button' | 'submit'
     /** 버튼의 형태를 지정합니다 */
     variant?: 'contain' | 'outline'
     /** 버튼의 색을 지정합니다 */
-    color?: ButtonColors
+    color?: 'primary' | 'error'
     /** 버튼의 사이즈를 지정합니다 */
     size?: 'small' | 'medium' | 'full'
     /** 버튼의 텍스트를 입력합니다 */
     label: string
     /** 버튼의 굵기를 설정합니다 */
     bold?: boolean
+    /** 버튼의 활성화 여부를 설정합니다 */
     disabled?: boolean
-    onClick?: () => void
     /** 버튼의 높이를 설정합니다 */
     height?: 'high' | 'medium'
+    onClick?: () => void
 }
 
 const Button = ({

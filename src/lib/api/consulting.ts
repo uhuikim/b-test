@@ -1,32 +1,33 @@
-import { IFormInput } from 'components/Form'
+import { IFormInput } from 'components/Form/UploadForm'
 import api from '.'
 
-export const getItem = () =>
-    api
+export const getItem = async () =>
+    await api
         .get('/api/inbound')
         .then((response) => response?.data)
         .catch((error) => {
             throw error
         })
 
-export const searchItem = (placeName: string) =>
-    api
-        .get(`/api/inbound/search?placeName=${placeName}`)
+export const searchItem = async (query: string) =>
+    await api
+        .get(`/api/inbound/search?placeName=${query}`)
         .then((response) => response?.data)
         .catch((error) => {
             throw error
         })
 
-export const getDetailItem = (id: string) =>
-    api
+export const getDetailItem = async (id: string) =>
+    await api
         .get(`/api/inbound/${id}`)
         .then((response) => response?.data)
         .catch((error) => {
             throw error
         })
 
-export const postItem = (data: IFormInput) => {
-    return api
+export const postItem = async (data: IFormInput) => {
+    console.log(data)
+    return await api
         .post(`/api/inbound`, { ...data })
         .then((response) => response?.data)
         .catch((error) => {
@@ -34,8 +35,8 @@ export const postItem = (data: IFormInput) => {
         })
 }
 
-export const deleteItem = (id: number) =>
-    api
+export const deleteItem = async (id: number) =>
+    await api
         .delete(`/api/inbound/${id}`)
         .then((response) => response?.data)
         .catch((error) => {

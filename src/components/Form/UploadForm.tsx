@@ -1,22 +1,14 @@
-import Button from 'components/Button'
-import CheckBox from 'components/Input/CheckBox'
-import Input from 'components/Input/Input'
-import SelectBox from 'components/Input/SelectBox'
-import TextArea from 'components/Input/TextArea'
+import { useEffect } from 'react'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import style from './style.module.scss'
-import { useEffect } from 'react'
+import useUploadeItem from 'lib/models/useUploadeItem'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { postItem } from 'lib/api/consulting'
-import { useNavigate } from 'react-router-dom'
-import Spinner from 'components/Spinner'
-import { consultingKeys } from 'lib/queryKeyFactory'
-import { useSetRecoilState } from 'recoil'
-import modalState from 'recoil/modalState'
+import { Button, CheckBox, Input, SelectBox, TextArea, Spinner } from 'components'
+
+import style from './style.module.scss'
+
 export interface IFormInput {
     inboundSource?: string
     inboundSourceEtc?: string
@@ -53,11 +45,7 @@ const schema = yup
     })
     .required()
 
-const Form = () => {
-    const navigate = useNavigate()
-    const queryClient = useQueryClient()
-    const setModal = useSetRecoilState(modalState)
-
+const UploadForm = () => {
     const methods = useForm<IFormInput>({
         defaultValues: {
             inboundSource: '',
@@ -71,15 +59,7 @@ const Form = () => {
         resolver: yupResolver<IFormInput>(schema),
         mode: 'onBlur',
     })
-    const { mutate, isLoading } = useMutation((data) => postItem(data), {
-        onSuccess: () => {
-            navigate('/')
-            queryClient.invalidateQueries(consultingKeys.list())
-        },
-        onError: () => {
-            setModal((prev) => ({ ...prev, isMessageOpen: true, messageType: 'fail' }))
-        },
-    })
+    const { mutate, isLoading } = useUploadeItem()
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
         const apiData = { ...data, inboundSource: data.inboundSourceEtc || data.inboundSource }
@@ -131,4 +111,4 @@ const Form = () => {
     )
 }
 
-export default Form
+export default UploadForm

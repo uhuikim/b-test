@@ -1,4 +1,4 @@
-import styles from './Divider.module.scss'
+import styles from './style.module.scss'
 
 const Divider = () => {
     return <hr className={styles.divider} />

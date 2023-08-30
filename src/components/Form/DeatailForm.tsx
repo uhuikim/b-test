@@ -1,21 +1,13 @@
-import Button from 'components/Button'
-import Input from 'components/Input/Input'
-import SelectBox from 'components/Input/SelectBox'
-import TextArea from 'components/Input/TextArea'
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { deleteItem, getDetailItem, postItem } from 'lib/api/consulting'
-import { useNavigate, useParams } from 'react-router-dom'
-import { consultingKeys } from 'lib/queryKeyFactory'
-import { useSetRecoilState } from 'recoil'
-import modalState from 'recoil/modalState'
-import { AxiosResponse } from 'axios'
-import { StoreItem } from 'mocks/data'
+import { Button, Input, SelectBox, TextArea, Spinner } from 'components'
+
+import useDeleteItem from 'lib/models/useDeleteItem'
 
 import style from './style.module.scss'
-import { useEffect } from 'react'
-import Spinner from 'components/Spinner'
+import useGetDetailItem from 'lib/models/useGetDetailItem'
 
 export interface IFormInput {
     inboundSource?: string
@@ -27,9 +19,9 @@ export interface IFormInput {
 }
 
 const DeatailForm = () => {
-    const navigate = useNavigate()
-    const queryClient = useQueryClient()
-    const setModal = useSetRecoilState(modalState)
+    const { id } = useParams() as { id: string }
+    const { mutate: deleteMutate, isLoading } = useDeleteItem(Number(id), 'success')
+    const { data, isSuccess } = useGetDetailItem(id)
 
     const methods = useForm<IFormInput>({
         defaultValues: {
@@ -42,22 +34,9 @@ const DeatailForm = () => {
         },
     })
 
-    const { mutate: deleteMutate, isLoading } = useMutation(() => deleteItem(id), {
-        onSuccess: () => {
-            queryClient.invalidateQueries(consultingKeys.list())
-            setModal((prev) => ({ ...prev, isMessageOpen: true, messageType: 'success' }))
-        },
-    })
-
-    const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    const onSubmit: SubmitHandler<IFormInput> = () => {
         deleteMutate()
     }
-
-    const { id } = useParams()
-
-    const { data, isSuccess } = useQuery<AxiosResponse, Error, StoreItem>(consultingKeys.detail(id), () =>
-        getDetailItem(id),
-    )
 
     useEffect(() => {
         if (isSuccess) {

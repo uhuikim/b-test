@@ -1,8 +1,7 @@
 import { worker } from 'mocks/browser'
 import React from 'react'
-import { RecoilRoot } from 'recoil'
-
 import ReactDOM from 'react-dom/client'
+import { RecoilRoot } from 'recoil'
 import { BrowserRouter } from 'react-router-dom'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -24,14 +23,14 @@ export const queryClient = new QueryClient({
 })
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    // <React.StrictMode>
-    <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <ReactQueryDevtools initialIsOpen={false} />
-                <App />
-            </BrowserRouter>
-        </QueryClientProvider>
-    </RecoilRoot>,
-    // </React.StrictMode>,
+    <React.StrictMode>
+        <RecoilRoot>
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                    <ReactQueryDevtools initialIsOpen={false} />
+                    <App />
+                </BrowserRouter>
+            </QueryClientProvider>
+        </RecoilRoot>
+    </React.StrictMode>,
 )
