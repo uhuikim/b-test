@@ -1,6 +1,6 @@
-import style from './SearchInput.module.scss'
-
 import { IoSearch } from 'react-icons/io5'
+
+import style from './SearchInput.module.scss'
 
 type Props = {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void

@@ -1,7 +1,9 @@
 import React from 'react'
 import cn from 'classnames'
-import style from './TextArea.module.scss'
 import { useFormContext } from 'react-hook-form'
+
+import style from './TextArea.module.scss'
+
 export type Props = {
     id: string
     label?: string

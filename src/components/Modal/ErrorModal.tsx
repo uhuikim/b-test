@@ -1,9 +1,11 @@
-import ModalPortal from './ModalPortal'
-import modalState from 'recoil/modalState'
 import { useSetRecoilState } from 'recoil'
-import style from './ConfirmModal.module.scss'
-import Button from 'components/Button'
+import modalState from 'recoil/modalState'
+
+import ModalPortal from './ModalPortal'
+import { Button } from 'components'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
+
+import style from './ConfirmModal.module.scss'
 
 type Props = {
     error: Error | null

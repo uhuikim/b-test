@@ -1,14 +1,12 @@
-import Typography from 'components/Typography'
-import style from './style.module.scss'
-import { useRecoilState } from 'recoil'
-import modalState from 'recoil/modalState'
-import MessageModal from 'components/Modal/MessageModal'
-import DeatailForm from 'components/Form/DeatailForm'
 import { Suspense } from 'react'
-import Spinner from 'components/Spinner'
+import { useRecoilValue } from 'recoil'
+import modalState from 'recoil/modalState'
+import { MessageModal, Spinner, DeatailForm, Typography } from 'components'
+
+import style from './style.module.scss'
 
 const Detail = () => {
-    const [openModal, setOpenModal] = useRecoilState(modalState)
+    const modal = useRecoilValue(modalState)
 
     return (
         <div className={style.container}>
@@ -19,7 +17,7 @@ const Detail = () => {
                 <DeatailForm />
             </Suspense>
 
-            {openModal.isMessageOpen && <MessageModal message='삭제되었습니다' />}
+            {modal.isMessageOpen && <MessageModal message='삭제되었습니다' />}
         </div>
     )
 }

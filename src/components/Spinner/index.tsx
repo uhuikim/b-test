@@ -1,5 +1,6 @@
-import style from './style.module.scss'
 import cn from 'classnames'
+
+import style from './style.module.scss'
 
 type Props = {
     dim?: boolean

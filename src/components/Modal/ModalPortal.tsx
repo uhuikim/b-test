@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
-import style from './ModalPortal.module.scss'
-
 import reactDom from 'react-dom'
+
+import style from './ModalPortal.module.scss'
 
 type Props = {
     children: ReactNode

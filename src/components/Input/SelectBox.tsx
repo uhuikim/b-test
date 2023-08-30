@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 
 import cn from 'classnames'
 
-import style from './SelectBox.module.scss'
 import { BsChevronDown } from 'react-icons/bs'
 import { useFormContext } from 'react-hook-form'
+
+import style from './SelectBox.module.scss'
 
 type DataType = { key: string; label: string }
 

@@ -1,9 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosResponse } from 'axios'
-import { deleteItem } from 'lib/api/consulting'
-import { consultingKeys } from 'lib/queryKeyFactory'
 import { useSetRecoilState } from 'recoil'
 import modalState from 'recoil/modalState'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
+import { deleteItem } from 'lib/api/consulting'
+import { consultingKeys } from 'lib/queryKeyFactory'
 
 const useDeleteItem = (id: number, messageType?: string) => {
     const queryClient = useQueryClient()

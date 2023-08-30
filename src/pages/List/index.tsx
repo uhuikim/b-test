@@ -30,7 +30,7 @@ const headList = [
 ]
 
 const List = () => {
-    const [openModal, setOpenModal] = useRecoilState(modalState)
+    const [modal, setModal] = useRecoilState(modalState)
     const [deleteId, setDeleteId] = useState(0)
     const [query, setQuery] = useState('')
     const [tmpQuery, setTmpQuery] = useState(query)
@@ -44,7 +44,7 @@ const List = () => {
     }, [])
 
     const handleDeleteClick = useCallback((id: number) => {
-        setOpenModal((prev) => ({ ...prev, isConfirmOpen: true }))
+        setModal((prev) => ({ ...prev, isConfirmOpen: true }))
         setDeleteId(id)
     }, [])
 
@@ -74,9 +74,7 @@ const List = () => {
                     <Table headList={headList} handleDelete={handleDeleteClick} query={query} />
                 </Suspense>
             </ErrorBoundary>
-            {openModal.isConfirmOpen && (
-                <ConfirmModal type='delete' message='삭제하시겠습니까?' onConfirm={deleteMutate} />
-            )}
+            {modal.isConfirmOpen && <ConfirmModal type='delete' message='삭제하시겠습니까?' onConfirm={deleteMutate} />}
         </div>
     )
 }

@@ -1,12 +1,11 @@
-import Typography from 'components/Typography'
-import style from './style.module.scss'
-import Form from 'components/Form/UploadForm'
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import modalState from 'recoil/modalState'
-import MessageModal from 'components/Modal/MessageModal'
+import { Typography, MessageModal, UploadForm } from 'components'
+
+import style from './style.module.scss'
 
 const Upload = () => {
-    const [openModal, setOpenModal] = useRecoilState(modalState)
+    const modal = useRecoilValue(modalState)
 
     return (
         <div className={style.container}>
@@ -14,9 +13,9 @@ const Upload = () => {
                 <Typography text='서빙로봇 상담인입 등록' type='title' />
             </div>
 
-            <Form />
+            <UploadForm />
 
-            {openModal.isMessageOpen && <MessageModal message='요청이 실패하였습니다.다시 시도해주세요.' />}
+            {modal.isMessageOpen && <MessageModal message='요청이 실패하였습니다.다시 시도해주세요.' />}
         </div>
     )
 }

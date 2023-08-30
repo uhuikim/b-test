@@ -1,6 +1,7 @@
 import React from 'react'
-import style from './CheckBox.module.scss'
 import { useFormContext } from 'react-hook-form'
+
+import style from './CheckBox.module.scss'
 
 export type Props = {
     id: string
