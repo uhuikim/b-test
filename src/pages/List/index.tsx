@@ -13,7 +13,7 @@ import ErrorModal from 'components/Modal/ErrorModal'
 import SearchInput from 'components/Input/SearchInput'
 import Divider from 'components/Divider/Divider'
 import { deleteItem } from 'lib/api/consulting'
-import { Suspense, useState } from 'react'
+import { Suspense, useDeferredValue, useEffect, useState, useTransition } from 'react'
 import ErrorBoundary from 'components/Error/ErrorBoundary'
 
 // const headList = [
@@ -29,8 +29,11 @@ const headList = ['매장명', '성명', '연락처', '인입경로', '생성일
 const List = () => {
     const queryClient = useQueryClient()
     const navigate = useNavigate()
+
     const [openModal, setOpenModal] = useRecoilState(modalState)
     const [deleteId, setDeleteId] = useState(0)
+    const [query, setQuery] = useState('')
+    const [tmpQuery, setTmpQuery] = useState(query)
 
     const { mutate: deleteMutate } = useMutation(() => deleteItem(deleteId), {
         onSuccess: () => {
@@ -48,17 +51,30 @@ const List = () => {
         setDeleteId(id)
     }
 
+    function handleQuery(e: React.ChangeEvent<HTMLInputElement>) {
+        setTmpQuery(e.target.value)
+    }
+
+    // const deferredQuery = useDeferredValue(query)
+    // search debounce
+    useEffect(() => {
+        const debounce = setTimeout(() => {
+            return setQuery(tmpQuery)
+        }, 500)
+        return () => clearTimeout(debounce)
+    }, [tmpQuery])
+
     return (
         <div className={style.container}>
             <div className={style.header}>
                 <Typography text='상담 인입 목록' type='title' />
                 <Button label='+ 추가' variant='contain' color='primary' height='high' bold onClick={handleClick} />
             </div>
-            <SearchInput />
+            <SearchInput handleChange={handleQuery} />
             <Divider />
             <ErrorBoundary onReset={reset} fallback={ErrorModal} message='상담 목록을 불러오는데 실패 하였습니다.'>
                 <Suspense fallback={<Spinner />}>
-                    <Table headList={headList} handleDelete={handleDelete} />
+                    <Table headList={headList} handleDelete={handleDelete} query={query} />
                 </Suspense>
             </ErrorBoundary>
             {openModal.isConfirmOpen && <ConfirmModal type='delete' onConfirm={deleteMutate} />}
