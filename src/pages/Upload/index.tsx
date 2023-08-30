@@ -16,7 +16,7 @@ const Upload = () => {
 
             <Form />
 
-            {openModal.isMessageOpen && <MessageModal />}
+            {openModal.isMessageOpen && <MessageModal message='요청이 실패하였습니다.다시 시도해주세요.' />}
         </div>
     )
 }

@@ -1,9 +1,6 @@
 import Button from 'components/Button'
 import { StoreItem } from 'mocks/data'
-import { useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSetRecoilState } from 'recoil'
-import modalState from 'recoil/modalState'
 
 type Props = {
     data: StoreItem

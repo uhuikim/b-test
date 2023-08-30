@@ -37,6 +37,7 @@ const List = () => {
             queryClient.invalidateQueries(consultingKeys.list())
         },
     })
+
     const { reset } = useQueryErrorResetBoundary()
     const handleClick = () => {
         navigate('/upload')

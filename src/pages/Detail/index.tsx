@@ -19,7 +19,7 @@ const Detail = () => {
                 <DeatailForm />
             </Suspense>
 
-            {openModal.isMessageOpen && <MessageModal />}
+            {openModal.isMessageOpen && <MessageModal message='삭제되었습니다' />}
         </div>
     )
 }

@@ -4,16 +4,18 @@ import SelectBox from 'components/Input/SelectBox'
 import TextArea from 'components/Input/TextArea'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 
-import style from './style.module.scss'
-
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { getDetailItem, postItem } from 'lib/api/consulting'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { deleteItem, getDetailItem, postItem } from 'lib/api/consulting'
 import { useNavigate, useParams } from 'react-router-dom'
 import { consultingKeys } from 'lib/queryKeyFactory'
 import { useSetRecoilState } from 'recoil'
 import modalState from 'recoil/modalState'
 import { AxiosResponse } from 'axios'
 import { StoreItem } from 'mocks/data'
+
+import style from './style.module.scss'
+import { useEffect } from 'react'
+import Spinner from 'components/Spinner'
 
 export interface IFormInput {
     inboundSource?: string
@@ -40,18 +42,34 @@ const DeatailForm = () => {
         },
     })
 
+    const { mutate: deleteMutate, isLoading } = useMutation(() => deleteItem(id), {
+        onSuccess: () => {
+            queryClient.invalidateQueries(consultingKeys.list())
+            setModal((prev) => ({ ...prev, isMessageOpen: true, messageType: 'success' }))
+        },
+    })
+
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        console.log('dkdkdk')
+        deleteMutate()
     }
 
     const { id } = useParams()
 
-    const { data } = useQuery<AxiosResponse, Error, StoreItem>(consultingKeys.detail(id), () => getDetailItem(id), {
-        onSuccess: (data) => {
-            console.log(data)
-            methods.reset({ ...data })
-        },
-    })
+    const { data, isSuccess } = useQuery<AxiosResponse, Error, StoreItem>(consultingKeys.detail(id), () =>
+        getDetailItem(id),
+    )
+
+    useEffect(() => {
+        if (isSuccess) {
+            methods.reset({
+                inboundSource: data?.inboundSource || '',
+                name: data?.name || '',
+                phone: data?.phone || '',
+                placeName: data?.placeName || '',
+                note: data?.note || '',
+            })
+        }
+    }, [isSuccess])
 
     return (
         <FormProvider {...methods}>
@@ -85,6 +103,7 @@ const DeatailForm = () => {
                     disabled={methods.formState.isSubmitted}
                 />
             </form>
+            {isLoading && <Spinner dim />}
         </FormProvider>
     )
 }
