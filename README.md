@@ -1,9 +1,118 @@
 # 프로젝트 설명 및 구조
 
+.
+├── README.md
+├── index.html
+├── package.json
+├── public
+│   ├── mockServiceWorker.js
+│   └── vite.svg
+├── src
+│   ├── App.tsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── Button
+│   │   │   ├── index.tsx
+│   │   │   └── style.module.scss
+│   │   ├── Divider
+│   │   │   ├── index.tsx
+│   │   │   └── style.module.scss
+│   │   ├── Error
+│   │   │   └── ErrorBoundary.tsx
+│   │   ├── Form
+│   │   │   ├── DeatailForm.tsx
+│   │   │   ├── UploadForm.tsx
+│   │   │   └── style.module.scss
+│   │   ├── Input
+│   │   │   ├── CheckBox.module.scss
+│   │   │   ├── CheckBox.tsx
+│   │   │   ├── Input.module.scss
+│   │   │   ├── Input.tsx
+│   │   │   ├── SearchInput.module.scss
+│   │   │   ├── SearchInput.tsx
+│   │   │   ├── SelectBox.module.scss
+│   │   │   ├── SelectBox.tsx
+│   │   │   ├── TextArea.module.scss
+│   │   │   └── TextArea.tsx
+│   │   ├── Modal
+│   │   │   ├── ConfirmModal.module.scss
+│   │   │   ├── ConfirmModal.tsx
+│   │   │   ├── ErrorModal.module.scss
+│   │   │   ├── ErrorModal.tsx
+│   │   │   ├── MessageModal.tsx
+│   │   │   ├── ModalPortal.module.scss
+│   │   │   └── ModalPortal.tsx
+│   │   ├── Spinner
+│   │   │   ├── index.tsx
+│   │   │   └── style.module.scss
+│   │   ├── Table
+│   │   │   ├── TableCell.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── style.module.scss
+│   │   ├── Typography
+│   │   │   ├── index.tsx
+│   │   │   └── style.module.scss
+│   │   └── index.ts
+│   ├── lib
+│   │   ├── api
+│   │   │   ├── consulting.ts
+│   │   │   └── index.ts
+│   │   ├── models
+│   │   │   ├── useDeleteItem.ts
+│   │   │   ├── useGetDetailItem.ts
+│   │   │   ├── useGetList.ts
+│   │   │   └── useUploadeItem.ts
+│   │   └── queryKeyFactory.ts
+│   ├── main.tsx
+│   ├── mocks
+│   │   ├── browser.ts
+│   │   ├── data.ts
+│   │   ├── errors.ts
+│   │   ├── handlers.ts
+│   │   └── utils.ts
+│   ├── pages
+│   │   ├── Detail
+│   │   │   ├── index.tsx
+│   │   │   └── style.module.scss
+│   │   ├── List
+│   │   │   ├── index.tsx
+│   │   │   └── style.module.scss
+│   │   ├── NotFound
+│   │   │   └── index.tsx
+│   │   └── Upload
+│   │   ├── index.tsx
+│   │   └── style.module.scss
+│   ├── recoil
+│   │   └── modalState.ts
+│   ├── stories
+│   │   ├── Button.stories.tsx
+│   │   ├── Divider.stories.tsx
+│   │   ├── Modal.stories.tsx
+│   │   ├── Spinner.stories.tsx
+│   │   └── Typography.stories.tsx
+│   ├── styles
+│   │   ├── base
+│   │   │   ├── \_reset.scss
+│   │   │   └── \_variables.scss
+│   │   └── globals.scss
+│   └── vite-env.d.ts
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+└── yarn.lock
+
+components : 컴포넌트가 모여있는 폴더
+lib : 프로젝트에 필요한 각종 코드들이 모여있는 폴더
+pages : 페이지 컴포넌트
+recoil : recoil과 관련된 코드
+stories : 스토리북과 관련된 코드
+styles : 스타일링과 관련된 코드
+
 # 로컬 환경 프로젝트 실행 방법
 
-yarn dev
-yarn storybook
+로컬 실행 : yarn dev
+스토리북 실행 : yarn storybook
 
 # 라이브러리
 
