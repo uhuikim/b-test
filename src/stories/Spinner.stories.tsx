@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import Spinner from 'components/Spinner'
+import { Spinner } from 'components'
 
 const meta = {
     title: 'Component/Spinner',
@@ -14,5 +14,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-    render: () => <Spinner />,
+    args: {
+        dim: false,
+    },
 }

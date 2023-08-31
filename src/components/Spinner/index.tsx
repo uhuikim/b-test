@@ -1,10 +1,11 @@
 import cn from 'classnames'
 
 import style from './style.module.scss'
-
-type Props = {
+interface Props {
+    /** dim 처리 유무를 지정합니다 */
     dim?: boolean
 }
+
 const Spinner = ({ dim }: Props) => {
     return (
         <div

@@ -7,7 +7,7 @@ import { Button } from 'components'
 
 import style from './ConfirmModal.module.scss'
 
-type Props = { type: 'delete' | 'upload'; onConfirm: () => void; message: string }
+type Props = { type: 'delete' | 'upload'; onConfirm: () => void; message?: string }
 
 const ConfirmModal = ({ type, onConfirm, message }: Props) => {
     const setModal = useSetRecoilState(modalState)

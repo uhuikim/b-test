@@ -1,6 +1,6 @@
 $size: (
-    'small': 65px,
-    'medium': 80px,
+    'small': 15px,
+    'medium': 30px,
     'full': 100%,
 );
 
@@ -21,10 +21,15 @@ $colors: (
     cursor: pointer;
     text-align: center;
     border-radius: 6px;
+    padding: 5px;
 
     @each $name, $value in $size {
         &__size__#{$name} {
-            width: $value;
+            @if $name== 'full' {
+                width: $value;
+            } @else {
+                padding: 0 $value;
+            }
         }
     }
 

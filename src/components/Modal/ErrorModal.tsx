@@ -8,7 +8,7 @@ import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import style from './ConfirmModal.module.scss'
 
 type Props = {
-    error: Error | null
+    error?: Error | null
     resetErrorBoundary: () => void
     message?: string
 }

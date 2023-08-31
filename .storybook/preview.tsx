@@ -1,7 +1,9 @@
-import type { Preview } from '@storybook/react'
+import React from 'react'
+import { withRouter } from 'storybook-addon-react-router-v6'
+import { RecoilRoot } from 'recoil'
 import '../src/styles/globals.scss'
 
-const preview: Preview = {
+export const parameters = {
     parameters: {
         actions: { argTypesRegex: '^on[A-Z].*' },
         controls: {
@@ -18,4 +20,12 @@ const preview: Preview = {
     },
 }
 
-export default preview
+export const decorators = [
+    withRouter,
+    (Story) => (
+        <RecoilRoot>
+            <div id='portal' />
+            <Story />
+        </RecoilRoot>
+    ),
+]
